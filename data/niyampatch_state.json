@@ -1,0 +1,130 @@
+{
+  "currentThreshold": 250000,
+  "isPatched": false,
+  "circular": {
+    "id": "circ_mp_he_2026_302",
+    "circularNumber": "F-12/302/2026/38-1",
+    "department": "Department of Higher Education, Government of Madhya Pradesh",
+    "title": "Revision of Family Income Limit under Mukhyamantri Medhavi Vidyarthi Yojana (MMVY)",
+    "effectiveDate": "2026-04-01",
+    "totalPages": 2,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "text": "GOVERNMENT OF MADHYA PRADESH\nDEPARTMENT OF HIGHER EDUCATION\nMANTRALAYA, VALLABH BHAWAN, BHOPAL\n\nCircular No. F-12/302/2026/38-1                                   Date: 15th March 2026\n\nMEMORANDUM\n\nSubject: Administrative Approval for Revision of Eligibility Criteria under State Higher Education Assistance Schemes.\n\nIn reference to the Cabinet Decision No. 44/2026 dated 10th March 2026, the Governor of Madhya Pradesh is pleased to order amendments to the financial assistance schemes managed by the Higher Education Portal.\n\nPrimary objective: To broaden student coverage and compensate for inflation-adjusted household expenditure limits across undergraduate and postgraduate technical degree courses."
+      },
+      {
+        "pageNumber": 2,
+        "text": "CIRCULAR DETAILS & AMENDMENT PROVISIONS:\n\nClause 1: Scope of Application\nThis circular applies to all fresh and renewal applicants under the Mukhyamantri Medhavi Vidyarthi Yojana (MMVY) and Post-Matric Scholarship Scheme enrolled in recognized higher educational institutes for Academic Session 2026-27 onwards.\n\nClause 2: Revision of Annual Income Ceiling\nClause 4.1 of Scheme Guidelines 2021: The upper ceiling for annual family income for eligibility under the Mukhyamantri Medhavi Vidyarthi Scheme is hereby revised from Rs. 2,50,000 (Two Lakh Fifty Thousand) to Rs. 3,00,000 (Three Lakhs) with effect from 1st April 2026.\n\nClause 3: Implementation Directives\nThe State IT Centre / Scholarship Portal Technical Team is directed to update rule evaluation constants in the automated eligibility verification engine prior to the opening of the application window on 1st April 2026.\n\nBy Order and in the Name of the Governor of Madhya Pradesh,\n(S. K. Sharma)\nPrincipal Secretary to Government of MP\nDepartment of Higher Education"
+      }
+    ]
+  },
+  "extractedRule": {
+    "ruleName": "Annual Family Income Eligibility Limit",
+    "oldValue": "₹2,50,000",
+    "newValue": "₹3,00,000",
+    "numericOldValue": 250000,
+    "numericNewValue": 300000,
+    "effectiveDate": "2026-04-01",
+    "confidence": 0.994,
+    "sourcePage": 2,
+    "sourceExcerpt": "Clause 4.1 of Scheme Guidelines 2021: The upper ceiling for annual family income for eligibility under the Mukhyamantri Medhavi Vidyarthi Scheme is hereby revised from Rs. 2,50,000 (Two Lakh Fifty Thousand) to Rs. 3,00,000 (Three Lakhs) with effect from 1st April 2026.",
+    "affectedFile": "src/fixtures/scholarship-portal/eligibilityEngine.ts",
+    "affectedSymbol": "MAX_FAMILY_INCOME"
+  },
+  "currentPatch": {
+    "id": "patch_max_family_income_1785687723911",
+    "ruleName": "Annual Family Income Eligibility Limit",
+    "targetFile": "src/fixtures/scholarship-portal/eligibilityEngine.ts",
+    "targetLineNumber": 9,
+    "oldCodeSnippet": "export const MAX_FAMILY_INCOME = 250000;",
+    "newCodeSnippet": "export const MAX_FAMILY_INCOME = 300000;",
+    "unifiedDiff": "===================================================================\n--- a/src/fixtures/scholarship-portal/eligibilityEngine.ts\tBaseline Commit\n+++ b/src/fixtures/scholarship-portal/eligibilityEngine.ts\tProposed Policy Revision\n@@ -6,5 +6,5 @@\n  */\n \n // POLICY RULE: Annual Family Income Limit (in INR)\n // Circular Reference: Govt of MP Higher Education Dept\n-export const MAX_FAMILY_INCOME = 250000;\n+export const MAX_FAMILY_INCOME = 300000;\n",
+    "status": "pending",
+    "proposedAt": "2026-08-02T16:22:03.911Z"
+  },
+  "latestPreTestRun": {
+    "runId": "run_pre-patch_1785687723912",
+    "phase": "pre-patch",
+    "timestamp": "2026-08-02T16:22:03.912Z",
+    "currentThreshold": 250000,
+    "total": 5,
+    "passedCount": 3,
+    "failedCount": 2,
+    "results": [
+      {
+        "testId": "test_sub_boundary_249999",
+        "income": 249999,
+        "label": "₹2,49,999",
+        "passed": true,
+        "actualEligible": true,
+        "targetEligible": true,
+        "appliedThreshold": 250000,
+        "detail": "Income ₹2,49,999 ≤ Threshold ₹2,50,000 (Eligible)"
+      },
+      {
+        "testId": "test_exact_old_boundary_250000",
+        "income": 250000,
+        "label": "₹2,50,000",
+        "passed": true,
+        "actualEligible": true,
+        "targetEligible": true,
+        "appliedThreshold": 250000,
+        "detail": "Income ₹2,50,000 ≤ Threshold ₹2,50,000 (Eligible)"
+      },
+      {
+        "testId": "test_mid_tier_revised_280000",
+        "income": 280000,
+        "label": "₹2,80,000",
+        "passed": false,
+        "actualEligible": false,
+        "targetEligible": true,
+        "appliedThreshold": 250000,
+        "detail": "Income ₹2,80,000 > Threshold ₹2,50,000 (Ineligible)"
+      },
+      {
+        "testId": "test_exact_new_boundary_300000",
+        "income": 300000,
+        "label": "₹3,00,000",
+        "passed": false,
+        "actualEligible": false,
+        "targetEligible": true,
+        "appliedThreshold": 250000,
+        "detail": "Income ₹3,00,000 > Threshold ₹2,50,000 (Ineligible)"
+      },
+      {
+        "testId": "test_above_new_boundary_300001",
+        "income": 300001,
+        "label": "₹3,00,001",
+        "passed": true,
+        "actualEligible": false,
+        "targetEligible": false,
+        "appliedThreshold": 250000,
+        "detail": "Income ₹3,00,001 > Threshold ₹2,50,000 (Ineligible)"
+      }
+    ]
+  },
+  "latestPostTestRun": null,
+  "auditLogs": [
+    {
+      "id": "log_1785687723915_atvy",
+      "timestamp": "2026-08-02T16:22:03.915Z",
+      "action": "CODE_PATCH_GENERATED",
+      "actor": "NiyamPatch Code Matcher",
+      "badgeType": "info",
+      "details": "Located affected constant MAX_FAMILY_INCOME in src/fixtures/scholarship-portal/eligibilityEngine.ts (Line 9). Generated unified diff and ran pre-patch boundary tests (3/5 passed against target ₹3,00,000 threshold).",
+      "metadata": {
+        "patchId": "patch_max_family_income_1785687723911",
+        "targetFile": "src/fixtures/scholarship-portal/eligibilityEngine.ts"
+      }
+    },
+    {
+      "id": "log_reset_1785687691388",
+      "timestamp": "2026-08-02T16:21:31.388Z",
+      "action": "DEMO_STATE_RESET",
+      "actor": "System Administrator",
+      "badgeType": "warning",
+      "details": "1-Click Demo state reset to initial baseline: Portal threshold ₹2,50,000, patch pending approval."
+    }
+  ]
+}
