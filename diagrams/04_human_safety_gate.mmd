@@ -1,0 +1,18 @@
+graph TD
+    Start["Codex Agent Generates Patch Proposal"] --> TestRun["Execute Automated Pre-Patch Boundary Tests"]
+    TestRun --> Review["Present Unified Diff & Test Results to Officer"]
+    Review --> Decision{"Human Administrator Decision"}
+    
+    Decision -->|Approve| SignOff["Log Officer Identity & Timestamp (Dr. A.K. Varma)"]
+    SignOff --> MutateState["Mutate Active Threshold to ₹300,000"]
+    MutateState --> PostRun["Execute Post-Patch Boundary Suite (5/5 Pass)"]
+    PostRun --> AuditSuccess["Append Success Audit Event to Immutable Log"]
+
+    Decision -->|Reject| LogReject["Log Rejection Reason in Audit Log"]
+    LogReject --> LockState["Maintain Baseline State (₹250,000)"]
+    LockState --> AuditWarn["Append Warning Event to Immutable Log"]
+
+    classDef danger fill:#fee2e2,stroke:#ef4444,color:#7f1d1d;
+    classDef success fill:#d1fae5,stroke:#10b981,color:#065f46;
+    class SignOff,MutateState,PostRun,AuditSuccess success;
+    class LogReject,LockState,AuditWarn danger;

@@ -1,0 +1,34 @@
+graph LR
+    subgraph Data_Inputs ["Data Inputs"]
+        PDF["Gazette Circular PDF Text"]
+        State_Init["Baseline JSON State (₹250,000)"]
+    end
+
+    subgraph Data_Transformations ["Transformations & Logic"]
+        Parse["Rule Extractor<br/>(Target: Clause 4.1)"]
+        Match["AST Matcher<br/>(Symbol: MAX_FAMILY_INCOME)"]
+        PreTest["Pre-Patch Test Exec<br/>(Threshold: ₹250,000)"]
+        Approve["Human Approval Event<br/>(Actor: Dr. A.K. Varma)"]
+        PostTest["Post-Patch Test Exec<br/>(Threshold: ₹300,000)"]
+    end
+
+    subgraph Data_Outputs ["Data Outputs & Artifacts"]
+        Rule_JSON["Extracted Rule JSON"]
+        Diff_Obj["Unified Git Diff Object"]
+        Test_Pre_Res["Pre-Test Result (3/5 Pass)"]
+        State_Mut["Mutated State JSON (isPatched: true)"]
+        Test_Post_Res["Post-Test Result (5/5 Pass)"]
+        Audit_Cert["CAG / NIC Audit Certificate PDF"]
+    end
+
+    PDF --> Parse
+    Parse --> Rule_JSON
+    Rule_JSON --> Match
+    Match --> Diff_Obj
+    State_Init --> PreTest
+    PreTest --> Test_Pre_Res
+    Diff_Obj --> Approve
+    Approve --> State_Mut
+    State_Mut --> PostTest
+    PostTest --> Test_Post_Res
+    State_Mut --> Audit_Cert

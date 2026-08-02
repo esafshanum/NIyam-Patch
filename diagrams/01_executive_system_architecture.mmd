@@ -1,0 +1,36 @@
+graph TB
+    subgraph Input_Layer ["1. Document Ingestion Layer"]
+        A["📄 State Gazette Circular PDF (#HE/2026/302)"]
+        B["🔊 Web Speech API Audio Reader / Speech Input"]
+        C["🌐 Vernacular i18n Selector (EN / HI / MR)"]
+    end
+
+    subgraph Core_Engine ["2. NiyamPatch Agentic Execution Engine"]
+        D["🎯 Policy Rule Extractor (Regex/Deterministic Parser)"]
+        E["AST Code Matcher (Symbol: MAX_FAMILY_INCOME)"]
+        F["🧪 Boundary Test Runner (5 Executable Edge Cases)"]
+        G["💾 In-Memory / File State Store (data/niyampatch_state.json)"]
+    end
+
+    subgraph Safety_Gate ["3. Mandatory Human Safety Gate"]
+        H["🛡️ Human Approval Gate (Senior Administrator Sign-Off)"]
+        I["🔀 Unified Git Diff Matcher (MAX_FAMILY_INCOME: 2.5L -> 3.0L)"]
+    end
+
+    subgraph Audit_Output ["4. Compliance Audit & Verification Output"]
+        J["📋 Immutable Audit Log & Timeline"]
+        K["📥 Printable CAG / NIC Audit PDF Certificate"]
+        L["🖥️ Split-Screen Dual Portal Simulator (Legacy vs Live)"]
+    end
+
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H -->|Approved| I
+    I --> L
+    H --> J
+    J --> K

@@ -1,0 +1,38 @@
+graph TB
+    subgraph Current_Demo ["Current Demo Architecture (Single Node)"]
+        Demo_Browser["Browser Client (React 19 / Next.js 16)"]
+        Demo_Server["Next.js Node Server (localhost:3000)"]
+        Demo_State["Local File Store (data/niyampatch_state.json)"]
+        Demo_Browser <--> Demo_Server <--> Demo_State
+    end
+
+    subgraph Production_Target ["Target Production Enterprise Architecture"]
+        Client["Web Browser / Mobile App Client"]
+        ALB["Application Load Balancer / WAF"]
+        Auth["Keycloak / GovSSO (OAuth2 / OIDC / SAML2)"]
+        
+        subgraph App_Cluster ["Containerized App Service Cluster (Kubernetes / ECS)"]
+            UI_Node["Next.js SSR / API Gateway"]
+            Worker["Background Worker Queue (Celery / BullMQ)"]
+        end
+
+        subgraph AI_Cluster ["AI & Agentic Service Mesh"]
+            Codex_API["Private Azure OpenAI / Fine-Tuned Codex Instance"]
+            OCR_Engine["Enterprise OCR Service (Tesseract / Azure Form Recognizer)"]
+        end
+
+        subgraph Storage_Layer ["Durable Enterprise Data Layer"]
+            PostgreSQL["Managed PostgreSQL (Audit Logs & State Versioning)"]
+            S3["Object Storage (S3 / Azure Blob - Gazette PDFs)"]
+            Git_Server["Enterprise Git Server (GitHub Enterprise / GitLab)"]
+        end
+    end
+
+    Client --> ALB --> Auth --> UI_Node
+    UI_Node --> Worker
+    UI_Node --> Codex_API
+    UI_Node --> OCR_Engine
+    Worker --> PostgreSQL
+    UI_Node --> PostgreSQL
+    UI_Node --> S3
+    UI_Node --> Git_Server

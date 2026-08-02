@@ -1,0 +1,30 @@
+graph TD
+    subgraph Threshold_Scale ["Income Eligibility Threshold Scale"]
+        T1["Test 1: ₹2,49,999<br/>(Sub-Boundary)"]
+        T2["Test 2: ₹2,50,000<br/>(Old Baseline Ceiling)"]
+        T3["Test 3: ₹2,80,000<br/>(Revised Mid-Tier)"]
+        T4["Test 4: ₹3,00,000<br/>(New Gazette Ceiling)"]
+        T5["Test 5: ₹3,00,001<br/>(Super-Boundary)"]
+    end
+
+    subgraph Pre_Patch ["Pre-Patch Status (Limit: ₹250,000)"]
+        P1["Eligible 🟢<br/>(PASS)"]
+        P2["Eligible 🟢<br/>(PASS)"]
+        P3["Rejected ❌<br/>(FAIL - Wrongful Denial)"]
+        P4["Rejected ❌<br/>(FAIL - Wrongful Denial)"]
+        P5["Rejected 🟢<br/>(PASS - Expected Ineligible)"]
+    end
+
+    subgraph Post_Patch ["Post-Patch Status (Limit: ₹300,000)"]
+        Q1["Eligible 🟢<br/>(PASS)"]
+        Q2["Eligible 🟢<br/>(PASS)"]
+        Q3["Eligible 🟢<br/>(PASS - Resolved!)"]
+        Q4["Eligible 🟢<br/>(PASS - Resolved!)"]
+        Q5["Rejected 🟢<br/>(PASS - Expected Ineligible)"]
+    end
+
+    T1 --> P1 --> Q1
+    T2 --> P2 --> Q2
+    T3 --> P3 --> Q3
+    T4 --> P4 --> Q4
+    T5 --> P5 --> Q5

@@ -1,0 +1,46 @@
+graph TB
+    subgraph Next_App ["src/app"]
+        Page["page.tsx (Multi-Tab Master View)"]
+        Layout["layout.tsx & globals.css"]
+        API["api/ (extract, patch/generate, patch/apply, portal/check, chat, audit, seed)"]
+    end
+
+    subgraph Components ["src/components"]
+        Nav["Sidebar.tsx & Header.tsx & LoginScreen.tsx"]
+        Cards["PolicyIngestionCard.tsx & ExtractionEvidenceCard.tsx"]
+        Diff["CodeDiffViewer.tsx & BoundaryTestMatrix.tsx"]
+        Gate["HumanApprovalGate.tsx & DualPortalSimulator.tsx"]
+        Agent["CodexThoughtStream.tsx & NiyamChatbot.tsx & PolicyConflictDetector.tsx"]
+        Report["AuditReportModal.tsx & AuditTimeline.tsx"]
+    end
+
+    subgraph Engine ["src/lib"]
+        Extr["engine/ruleExtractor.ts"]
+        Match["engine/codeMatcher.ts"]
+        Test["engine/testRunner.ts"]
+        Patch["engine/patchManager.ts"]
+        DB["db/store.ts"]
+        I18n["i18n.ts"]
+    end
+
+    subgraph Fixtures_State ["Fixtures & State"]
+        Fix_Circ["fixtures/policyCirculars/scholarship_income_2026.ts"]
+        Fix_Code["fixtures/scholarship-portal/eligibilityEngine.ts"]
+        Fix_Test["fixtures/scholarship-portal/boundaryTests.ts"]
+        JSON_State["data/niyampatch_state.json"]
+    end
+
+    Page --> Nav
+    Page --> Cards
+    Page --> Diff
+    Page --> Gate
+    Page --> Agent
+    Page --> Report
+    API --> Extr
+    API --> Match
+    API --> Test
+    API --> Patch
+    Extr --> Fix_Circ
+    Match --> Fix_Code
+    Test --> Fix_Test
+    DB --> JSON_State

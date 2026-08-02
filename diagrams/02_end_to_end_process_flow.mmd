@@ -1,0 +1,25 @@
+sequenceDiagram
+    autonumber
+    actor Admin as Senior Policy Officer (Dr. A.K. Varma)
+    participant UI as NiyamPatch Cockpit UI
+    participant Extractor as Rule Extractor Engine
+    participant Matcher as AST Code Matcher
+    participant Tester as Boundary Test Runner
+    participant Store as State Store (niyampatch_state.json)
+    participant Portal as Live Scholarship Portal Simulator
+
+    Admin->>UI: 1. Sign in & Ingest Gazette Circular #HE/2026/302
+    UI->>Extractor: 2. Request Rule Extraction
+    Extractor-->>UI: 3. Extracted Clause 4.1 (Old: ₹2.5L -> New: ₹3.0L, 99.4% Conf)
+    Admin->>UI: 4. Click 'Generate Patch Proposal'
+    UI->>Matcher: 5. Match Symbol 'MAX_FAMILY_INCOME' at Line 9
+    Matcher-->>UI: 6. Unified Git Diff Proposal
+    Admin->>UI: 7. Click 'Run Boundary Unit Tests'
+    UI->>Tester: 8. Execute Pre-Patch Boundary Suite
+    Tester-->>UI: 9. Pre-Patch Results: 3/5 PASSED (₹2.8L & ₹3.0L Fail)
+    Admin->>UI: 10. Explicit 'Approve & Apply Patch' Sign-Off
+    UI->>Store: 11. Mutate Active Threshold to ₹3,00,000 & Log Officer Approval
+    UI->>Tester: 12. Execute Post-Patch Boundary Suite
+    Tester-->>UI: 13. Post-Patch Results: 5/5 PASSED (100% Compliant)
+    UI->>Portal: 14. Synchronize Live Portal State
+    Portal-->>Admin: 15. Ananya Sharma (₹2.8L Income): Rejection ❌ -> Approval 🟢

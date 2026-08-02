@@ -1,0 +1,22 @@
+stateDiagram-v2
+    [*] --> Baseline: Initialize State (Current Ceiling = ₹2,50,000)
+    Baseline --> Extracted: Policy Circular Ingested & Clause 4.1 Extracted
+    Extracted --> PatchProposed: AST Matcher Generates Unified Diff Proposal
+    PatchProposed --> TestsPreRun: Execute Boundary Suite against Baseline
+    TestsPreRun --> PendingApproval: Pre-Tests Completed (3/5 Pass)
+    
+    state PendingApproval {
+        [*] --> ReviewingDiff: Review Git Diff & Citation
+        ReviewingDiff --> OfficerDecision: Evaluate Risk & Boundary Matrix
+    }
+
+    PendingApproval --> Approved: Officer Click 'Approve & Apply Patch'
+    PendingApproval --> Rejected: Officer Click 'Reject Patch'
+
+    Approved --> Applied: Mutate Active Ceiling to ₹3,00,000
+    Applied --> TestsPostRun: Execute Boundary Suite against Revised Ceiling
+    TestsPostRun --> Audited: 5/5 PASSED & Audit Log Event Appended
+    Audited --> [*]: State Synchronized with Live Simulator
+
+    Rejected --> AuditedReject: Log Rejection Reason & Retain Baseline ₹2,50,000
+    AuditedReject --> [*]: State Restored to Baseline
