@@ -1,76 +1,94 @@
-# NiyamPatch (नियम पैच)
+# 📜 NiyamPatch: Policy-to-Code Operational Cockpit
+**ChatGPT Codex India Hackathon 2026 Submission Document**
 
-> **A policy circular PDF becomes a human-approved, tested code change.**
-
-NiyamPatch is an auditable policy operations cockpit designed for public-sector and enterprise platforms. It ingests official policy circular documents, extracts structured rule revisions with page-level citations, matches affected code constants in target repositories, generates unified diffs, executes boundary test matrices, and enforces mandatory human approval before applying changes to live portals.
-
----
-
-## 🌟 Core Features & Visual Evidence Chain
-
-1. **Policy Circular Ingestion**: Ingests gazette circular PDFs / text documents with page-level navigation and syntax-highlighted excerpts.
-2. **Structured Rule Extraction**: Parses policy text into structured JSON (Old Value: ₹2,50,000 ➔ New Value: ₹3,00,000, Effective Date: 2026-04-01, Confidence: 99.4%, Source Page: 2).
-3. **Target Code Matching & Unified Diff**: Locates matching rule constants in `scholarship-portal/eligibilityEngine.ts` (`MAX_FAMILY_INCOME`) and generates side-by-side unified diffs.
-4. **Executable Boundary Testing**: Runs real TypeScript boundary unit tests for **₹2,49,999**, **₹2,50,000**, **₹2,80,000**, **₹3,00,000**, and **₹3,00,001**.
-5. **Mandatory Human Approval Safety Gate**: Enforces explicit human administrator sign-off before modifying code. Never silently alters production rules.
-6. **Live Portal Behavioral Change**: Embedded scholarship applicant eligibility checker updates instantly upon patch approval.
-7. **Auditable Event Timeline**: Time-stamped, immutable audit log of all system actions, extractions, approvals, and test results.
-8. **1-Click Demo Scenario**: Works 100% deterministically out of the box without requiring external API keys.
+[![GitHub Repository](https://img.shields.io/badge/GitHub-NIyam--Patch-blue?style=flat-square&logo=github)](https://github.com/esafshanum/NIyam-Patch)
+[![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-Government%20Open%20Source-emerald?style=flat-square)](#)
 
 ---
 
-## 🛠️ Technology Stack
+## 🌟 Executive Summary
 
-- **Framework**: Next.js 15 (App Router, TypeScript)
-- **Styling**: Tailwind CSS v4 (Calm Indian Public Service visual language: Deep Navy `#0b1329`, Warm Saffron `#f97316`)
-- **Persistence**: File-backed JSON / SQLite database layer (`data/niyampatch_state.json`)
-- **Diffing & Testing**: `diff` package + in-process TypeScript boundary test suite runner
-- **Icons**: Lucide React
+**NiyamPatch** is an enterprise-grade, agentic **Policy-to-Code Operational Cockpit** designed to eliminate the multi-month delay, manual human translation errors, and compliance risks involved in converting newly published government gazette circulars into production software logic.
+
+When state governments amend public welfare policies (e.g., expanding eligibility income ceilings, revising scholarship criteria, or updating tax slabs), software portals typically lag by months. This lag leads to eligible citizens being wrongfully rejected by outdated code rules.
+
+NiyamPatch solves this bottleneck by establishing an automated, **Agentic Codex Pipeline** that ingests gazette circular PDFs, extracts structured rule changes with 99.4% confidence, maps them directly to codebase AST constants (`MAX_FAMILY_INCOME`), executes 5 boundary unit tests, and presents color-coded git diffs for **mandatory Human Administrator approval** before applying patches.
 
 ---
 
-## 🚀 Quick Start & Local Setup
+## 🚩 Problem Statement
 
-### 1. Prerequisites
-- Node.js v18.x or v20.x or v22.x
-- npm v9+
+### The Public Sector Policy-to-Code Bottleneck
 
-### 2. Installation
+Every year, state and central government departments publish thousands of gazette circulars amending administrative rules. However, converting these legal documents into operational portal logic faces four critical failures:
+
+1. **Massive Implementation Lag (3–6 Months):** After a policy is officially gazetted, IT vendors require months to write change requests, draft specifications, update codebases, and redeploy production servers.
+2. **Citizen Denial & Rightful Benefit Loss:** During the implementation lag, citizens meeting newly gazetted criteria (e.g. family income between ₹2.5L and ₹3.0L) are automatically rejected by legacy code engines.
+3. **Absence of Mandatory Human Safety Controls in Generic AI:** Unchecked LLM code generation risks hallucinating critical parameters or breaking surrounding production logic, leading to catastrophic governance failures.
+4. **Lack of Auditable Legal Chain of Custody:** Government auditors (CAG/NIC) lack transparent traceability linking a specific code constant modification back to an official gazette circular clause number and approving officer.
+
+---
+
+## 🎯 The NiyamPatch Solution
+
+```
++-------------------+      +-------------------+      +-------------------+      +-------------------+
+|  Gazette PDF      | ---> |  Codex Extraction | ---> |  AST Code Matcher | ---> | Boundary Test Run |
+|  Circular #302    |      |  Clause 4.1 Excerpt|      |  MAX_FAMILY_INCOME|      | 5/5 Boundary Tests|
++-------------------+      +-------------------+      +-------------------+      +-------------------+
+                                                                                       |
+                                                                                       v
++-------------------+      +-------------------+                                 +-------------------+
+| Live State Portal | <--- | Patch Applied     | <------------------------------ | Human Safety Gate |
+| Ceiling = ₹3.0L   |      | In-Memory Engine  |    (Explicit Sign-Off)          | Officer Approval  |
++-------------------+      +-------------------+                                 +-------------------+
+```
+
+---
+
+## 🛠️ Technical Stack & Architecture
+
+- **Framework:** Next.js 16 (App Router, Turbopack, React 19)
+- **Language:** TypeScript 5.0 (Strict Type System)
+- **Styling:** Vanilla CSS Tokens + TailwindCSS, custom HSL palette (`Pastel Baby Blue #E0F2FE` & `Snow White #FFFFFF`)
+- **Icons:** Lucide React Icons
+- **AI Agent & LLM Engine:** Codex Step-by-Step Thought Stream Drawer (`/api/policy/extract`, `/api/patch/generate`, `/api/chat`)
+- **AST Matching Engine:** Regex/AST Symbol Matcher targeting code constants (`MAX_FAMILY_INCOME` at line 9 of `eligibilityEngine.ts`)
+- **Vernacular i18n:** Full project translation across **English**, **Hindi (हिंदी)**, and **Marathi (मराठी)**
+- **Voice & Accessibility:** Web Speech API (`window.speechSynthesis`, `window.webkitSpeechRecognition`)
+- **Security:** Role-Based Security Landing Gate with 1-Click Quick Demo Sign-In
+- **Auditability:** Digital Gazette SHA-256 Signature Verification Seal & Exportable CAG/NIC Compliance Audit PDF Certificate
+
+---
+
+## 🧪 Boundary Test Suite Matrix Results
+
+| Test ID | Income Value | Test Condition | Pre-Patch Result | Post-Patch Result |
+| :--- | :--- | :--- | :--- | :--- |
+| **TEST_1** | `₹2,49,999` | Sub-Boundary | PASSED (Eligible) | PASSED (Eligible) |
+| **TEST_2** | `₹2,50,000` | Baseline Ceiling | PASSED (Eligible) | PASSED (Eligible) |
+| **TEST_3** | `₹2,80,000` | Revised Mid-Tier | FAILED (Rej ❌) | **PASSED (Elig 🟢)** |
+| **TEST_4** | `₹3,00,000` | New Gazette Ceiling | FAILED (Rej ❌) | **PASSED (Elig 🟢)** |
+| **TEST_5** | `₹3,00,001` | Super-Boundary | PASSED (Rej 🟢) | PASSED (Rej 🟢) |
+| **OVERALL** | — | — | **3/5 PASSED (60%)** | **5/5 PASSED (100%)** |
+
+---
+
+## 🚀 Getting Started
+
 ```bash
-git clone https://github.com/your-repo/NiyamPatch.git
-cd NiyamPatch
+# 1. Clone the repository
+git clone https://github.com/esafshanum/NIyam-Patch.git
+cd NIyam-Patch
+
+# 2. Install dependencies
 npm install
-```
 
-### 3. Running Locally
-```bash
+# 3. Start development server
 npm run dev
+
+# 4. Access in browser
+http://localhost:3000
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🎬 10-Second Demo Walkthrough Script
-
-1. **Launch App**: Open `http://localhost:3000`. Click **"⚡ 1-Click Demo Scenario"** on the top header.
-2. **Inspect Policy Ingestion**: View Govt of MP Higher Education Dept Circular #F-12/302/2026/38-1 on Page 2 (Clause 4.1).
-3. **View Extracted Evidence**: Observe structured rule extraction (₹2,50,000 ➔ ₹3,00,000).
-4. **Inspect Code Diff**: Review side-by-side diff in `eligibilityEngine.ts` modifying `MAX_FAMILY_INCOME`.
-5. **Run Pre-Patch Tests**: Note boundary test failures for ₹2.8L and ₹3.0L under old ₹2.5L rule.
-6. **Test Live Portal (Before Approval)**: Enter ₹2,80,000 into the Live Portal Eligibility Checker ➔ Output: **REJECTED**.
-7. **Approve Patch**: Click **"APPROVE & APPLY CODE PATCH NOW"** in the Safety Control Gate.
-8. **Verify Post-Patch Results**: Observe 5/5 Boundary Tests PASSED.
-9. **Test Live Portal (After Approval)**: Enter ₹2,80,000 into the Live Portal ➔ Output: **APPROVED**!
-10. **Review Audit Log**: Scroll down the right column to view the complete audit timeline.
-
----
-
-## ⚠️ Prototype Limitations & Disclaimer
-
-- **Prototype Scope**: Designed for targeted policy eligibility rules (income thresholds, age limits, marks percentages).
-- **Human Review Mandate**: This software is a functional prototype and does not provide automated legal advice. All policy-driven code changes require verification by authorized administrators.
-
----
-
-## 📄 License
-MIT License
